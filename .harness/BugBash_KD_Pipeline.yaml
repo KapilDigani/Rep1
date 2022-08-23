@@ -1,0 +1,32 @@
+pipeline:
+  name: BugBash KD Pipeline
+  identifier: BugBash_KD_Pipeline
+  projectIdentifier: AmitGitXExp
+  orgIdentifier: deafult
+  tags: {}
+  stages:
+    - stage:
+        name: Approval
+        identifier: Approval
+        description: ""
+        type: Approval
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: Approval
+                  identifier: Approval
+                  type: HarnessApproval
+                  timeout: 1d
+                  spec:
+                    approvalMessage: |-
+                      Please review the following information
+                      and approve the pipeline progression
+                    includePipelineExecutionHistory: true
+                    approvers:
+                      minimumCount: 1
+                      disallowPipelineExecutor: false
+                      userGroups:
+                        - account.Approvers
+                    approverInputs: []
+        tags: {}
