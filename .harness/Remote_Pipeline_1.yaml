@@ -1,0 +1,30 @@
+pipeline:
+  name: Remote Pipeline 1
+  identifier: Remote_Pipeline_1
+  projectIdentifier: GitX_Demo
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: Echo
+        identifier: Echo
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: Echo
+                  identifier: Echo
+                  spec:
+                    shell: Bash
+                    onDelegate: true
+                    source:
+                      type: Inline
+                      spec:
+                        script: echo "Hello GitX"
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+        tags: {}
