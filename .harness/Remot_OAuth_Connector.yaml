@@ -1,0 +1,30 @@
+pipeline:
+  name: Remot OAuth Connector
+  identifier: Remot_OAuth_Connector
+  projectIdentifier: KD_QuickStart_CD
+  orgIdentifier: KD
+  tags: {}
+  stages:
+    - stage:
+        name: Custom
+        identifier: Custom
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: Shell Script
+                  identifier: ShellScript
+                  spec:
+                    shell: Bash
+                    onDelegate: true
+                    source:
+                      type: Inline
+                      spec:
+                        script: echo "Hello OAuth"
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+        tags: {}
