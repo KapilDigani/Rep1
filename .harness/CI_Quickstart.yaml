@@ -1,0 +1,55 @@
+pipeline:
+  name: CI Quickstart
+  identifier: CI_Quickstart
+  projectIdentifier: KD_CI_QuickStart
+  orgIdentifier: KD
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: KD_CI_Quickstart
+        repoName: https://github.com/keen-software/goHelloWorldServer.git
+        build: <+input>
+  stages:
+    - stage:
+        name: Build
+        identifier: Build
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: cidelegate
+              namespace: default
+              nodeSelector: {}
+              os: Linux
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Run Unit Test
+                  identifier: Run_Unit_Test
+                  spec:
+                    connectorRef: KD_Docker_Hub
+                    image: golang:1.15
+                    shell: Sh
+                    command: |-
+                      go get gotest.tools/gotestsum
+                      gotestsum --format=standard-verbose --junitfile unit-tests.xml || true
+                      CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -tags netgo
+                    reports:
+                      type: JUnit
+                      spec:
+                        paths:
+                          - "*.xml"
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: Build and push an image to Docker Registry
+                  identifier: Build_and_push_an_image_to_Docker_Registry
+                  spec:
+                    connectorRef: KD_Docker_Hub
+                    repo: digani/ci_quickstart
+                    tags:
+                      - <+pipeline.sequenceId>
