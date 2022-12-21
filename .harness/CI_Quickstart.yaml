@@ -53,3 +53,26 @@ pipeline:
                     repo: digani/ci_quickstart
                     tags:
                       - <+pipeline.sequenceId>
+    - stage:
+        name: Custom
+        identifier: Custom
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: Echo
+                  identifier: Echo
+                  spec:
+                    shell: Bash
+                    onDelegate: true
+                    source:
+                      type: Inline
+                      spec:
+                        script: echo "Hello from Git"
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+        tags: {}
