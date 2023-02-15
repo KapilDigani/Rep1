@@ -23,6 +23,7 @@ pipeline:
             spec:
               connectorRef: cidelegate
               namespace: default
+              automountServiceAccountToken: true
               nodeSelector: {}
               os: Linux
           execution:
