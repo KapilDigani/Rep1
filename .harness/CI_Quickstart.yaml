@@ -54,6 +54,17 @@ pipeline:
                     repo: digani/ci_quickstart
                     tags:
                       - <+pipeline.sequenceId>
+              - step:
+                  type: Security
+                  name: Test STO
+                  identifier: Test_STO
+                  spec:
+                    privileged: true
+                    settings:
+                      policy_type: orchestratedScan
+                      scan_type: container
+                      product_name: aqua-trivy
+                      product_config_name: aqua-trivy
     - stage:
         name: Custom
         identifier: Custom
