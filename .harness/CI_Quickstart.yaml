@@ -14,7 +14,6 @@ pipeline:
     - stage:
         name: Build
         identifier: Build
-        description: ""
         type: CI
         spec:
           cloneCodebase: true
