@@ -53,6 +53,17 @@ pipeline:
                     repo: digani/ci_quickstart
                     tags:
                       - <+pipeline.sequenceId>
+              - step:
+                  type: Plugin
+                  name: Plugin_1
+                  identifier: Plugin_1
+                  spec:
+                    connectorRef: <+input>
+                    image: <+input>
+                    settings:
+                      test: value1
+                      test1: <+input>
+                  description: fdesw
     - stage:
         name: Custom
         identifier: Custom
